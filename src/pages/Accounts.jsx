@@ -50,7 +50,6 @@ function Accounts() {
             </div>
 
             {termsAndConditions && <TermsAndConditions />}
-            
 
         </main>
         
