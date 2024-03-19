@@ -1,7 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+
+
 function DetailAccounts({number, balance, creationDate, id}) {
+
+
+    // console.log(user)
+
     return (
         <div className='flex flex-wrap gap-6 justify-center pt-6 lg:gap-40'>
                 <div>

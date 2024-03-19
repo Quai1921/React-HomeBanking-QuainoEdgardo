@@ -5,15 +5,15 @@ export const LINKS_FOOTER = [
     },
     {
         src:"/Instagram.png",
-        title:"Icon Instagram"
+        alt:"Icon Instagram"
     },
     {
         src:"/Whatsapp.png",
-        title:"Icon Whatsapp"
+        alt:"Icon Whatsapp"
     },
     {
         src:"/Mail.png",
-        title:"Icon Mail"
+        alt:"Icon Mail"
     },
     
 ]
