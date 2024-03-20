@@ -18,11 +18,15 @@ function DetailAccounts({number, balance, creationDate, id}) {
                         </div>
                         <div className='flex gap-3'>
                             <img className='w-6 h-6' src="/IconMoney.png" alt="Icon Balance" />
-                            <p className='font-bold text-gray-500'>Balance: <span className='text-black'>{balance.toLocaleString('en-US', {style:'currency', currency:'USD'})}</span></p>
+                            <p className='font-bold text-gray-500'>Balance: </p>
+                            <div className='flex-grow'></div>
+                            <span className='text-black font-bold'>{balance.toLocaleString('en-US', {style:'currency', currency:'USD'})}</span>
                         </div>
                         <div className='flex gap-3'>
                             <img className='w-6 h-6' src="/IconCalendar.png" alt="Icon Creation Date" />
-                            <p className='font-bold text-gray-500'>Creation Date: <span className='text-black'>{creationDate.toLocaleString('en-US', {style:'currency', currency:'USD'})}</span></p>
+                            <p className='font-bold text-gray-500'>Creation Date:</p>
+                            <div className='flex-grow'></div>
+                            <span className='text-black font-bold'>{creationDate.toLocaleString('en-US', {style:'currency', currency:'USD'})}</span>
                         </div>
                     </div>
                     <div className='flex flex-col justify-center pt-1 pl-4'>

@@ -44,7 +44,7 @@ function Loans() {
 
     const dispatch = useDispatch()
 
-    const { current } = authActions
+    const { update } = authActions
 
     const formRef = useRef(null)
 
@@ -244,13 +244,13 @@ function Loans() {
             setConfirmLoan(false)
         }
         if (!activeLoans?.some(loan => loan.payments.includes(parseInt(loanSelected.payments))) && loanSelected.payments != "") {
-            console.log(activeLoans?.some(loan => loan.payments.includes(parseInt(loanSelected.payments))));
-            console.log(parseInt(loanSelected.payments));
+            // console.log(activeLoans?.some(loan => loan.payments.includes(parseInt(loanSelected.payments))));
+            // console.log(parseInt(loanSelected.payments));
             setPaymentsExist(true)
             paymentsValid = false
             setConfirmLoan(false)
         }
-        if(!user.accounts?.some(account => account.number === loanSelected.numberAccount)){
+        if(!user.accounts?.some(account => account.number === loanSelected.numberAccount) && loanSelected.numberAccount != "") {
             console.log(!user.accounts?.some(account => account.number === loanSelected.numberAccount));
             setAccountExist(true)
             accountValid = false
@@ -276,7 +276,10 @@ function Loans() {
             }
         })
             .then(response => {
-                dispatch(current(response.data))
+                // dispatch(current(response.data))
+                dispatch(update({...user, 
+                    loans: response.data.loans,
+                    accounts: response.data.accounts}))
             })
             .catch(error => console.log(error.response.data))
 
@@ -293,11 +296,10 @@ function Loans() {
             <Carrousel/>
 
             <div className='w-full flex flex-wrap justify-center items-center px-14 gap-2 md:gap-20'>
-                <h1 className='font-bold text-center text-3xl p-2 md:p-6'>Your Loans:</h1>
                 <p className='font-semibold text-center text-gray-400'>Last entry: {new Date().toLocaleDateString('en-US', {style:'currency', currency:'USD'})}</p>
             </div>
 
-            {loansQuantity > 0 ?(<p className='font-bold text-center text-3xl pt-4'>You have {loansQuantity} active loans:</p>) : (<p className='font-bold text-center text-3xl pt-4'>You don't have any active loans.</p>)}
+            {loansQuantity > 0 ?(<h1 className='font-bold text-center text-3xl pt-4'>You have {loansQuantity} active loans:</h1>) : (<h1 className='font-bold text-center text-3xl pt-4'>You don't have any active loans.</h1>)}
             
             <div className='flex flex-wrap gap-6 justify-center pb-14 pt-6 lg:gap-30'>
             {user.loans?.map(loan => <DetailLoans key={loan.id} name={loan.name} amount={loan.amount} payments={loan.payments} id={loan.id}/>)}
@@ -368,7 +370,7 @@ function Loans() {
                     <div className="bg-white p-6 rounded-lg shadow-md">
                         <p className='font-semibold'>Do you confirm the operation?</p>
                         <div className="flex justify-center gap-4 mt-4">
-                            <button className="bg-red-500 text-white font-semibold px-4 py-2 rounded-md w-[90px]" onClick={handleSubmit}>Confirm</button>
+                            <button className="bg-green-700 text-white font-semibold px-4 py-2 rounded-md w-[90px]" onClick={handleSubmit}>Confirm</button>
                             <button className="bg-gray-400 font-semibold px-4 py-2 rounded-md w-[90px]" onClick={handleCancel}>Cancel</button>
                         </div>
                     </div>
@@ -383,6 +385,8 @@ export default Loans
 
 
 
+
+    {/* <h1 className='font-bold text-center text-3xl p-2 md:p-6'>Your Loans:</h1> */}
 
     // ANTERIOR -----------------------------------------------------------------------------------------------------------------------------------------------------------
     // useEffect(() => {

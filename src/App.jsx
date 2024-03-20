@@ -14,6 +14,7 @@ import { withAuth } from './hocs/whitAuth'
 import { useDispatch, useSelector } from 'react-redux'
 import  authActions from './redux/actions/auth.actions.js'
 import axios from 'axios'
+import PruebaNav from './pages/PruebaNav.jsx'
 
 
 
@@ -61,6 +62,7 @@ function App() {
           <Route path="/register" element={<SingUp />} />
           <Route path="/login" element={<SingIn />} />
           <Route path="/avaiableLoans" element={<AvailableLoans />} />
+          <Route path="/prueba" element={<PruebaNav />} />
 
 
           <Route

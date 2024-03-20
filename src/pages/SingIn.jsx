@@ -51,7 +51,7 @@ function SingIn() {
                 })
                     .then(response => {
                         dispatch(current(response.data))
-                        console.log(response.data);
+                        // console.log(response.data);
                         navigate("/accounts")
                         // localStorage.setItem("lastLogin", new Date().toISOString())
                     })

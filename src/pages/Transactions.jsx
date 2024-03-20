@@ -38,7 +38,7 @@ function Transactions() {
 
     const dispatch = useDispatch()
 
-    const { current } = authActions
+    const { update } = authActions
 
 
 
@@ -66,6 +66,8 @@ function Transactions() {
             let accountCreditValid = true
             let amountValid = true
             let conceptValid = true
+
+            const selectedDebitAccount = user.accounts?.find(account => account.number === transactionEntered.numberDebit)
 
             const token = localStorage.getItem("token")
 
@@ -99,7 +101,14 @@ function Transactions() {
                 setAmountNegative(true)
                 amountValid = false
             }
-
+            if(!user.accounts?.some(account => account.number === transactionEntered.numberDebit)){
+                setAccountDebitExist(true)
+                accountDebitValid = false
+            }
+            if(selectedDebitAccount.balance < transactionEntered.amount){
+                setInsufficientFunds(true)
+                amountValid = false
+            }
             if(accountDebitValid && accountCreditValid && amountValid && conceptValid){
                 axios.post("/api/clients/current/transactions", transactionEntered, {
                     headers: {
@@ -172,6 +181,8 @@ function Transactions() {
         let amountValid = true
         let conceptValid = true
 
+        const selectedDebitAccount = user.accounts?.find(account => account.number === transactionEntered.numberDebit)
+
         if(transactionEntered.numberDebit == ""){
             setAccountDebitEntered(true)
             accountDebitValid = false
@@ -209,7 +220,7 @@ function Transactions() {
             accountDebitValid = false
             setConfirmTransaction(false)
         }
-        if(user.accounts?.some(account => account.balance < transactionEntered.amount)){
+        if(selectedDebitAccount.balance < transactionEntered.amount){
             setInsufficientFunds(true)
             amountValid = false
             setConfirmTransaction(false)
@@ -219,6 +230,7 @@ function Transactions() {
         }
         
     }
+
 
     function handleCancel() {
         setConfirmTransaction(false)
@@ -235,11 +247,16 @@ function Transactions() {
             }
         })
             .then(response => {
-                dispatch(current(response.data))
+                // dispatch(current(response.data))
+                dispatch(update({...user,
+                    accounts: response.data.accounts}))
             })
             .catch(error => console.log(error.response.data))
     }
 
+    // useEffect(() => {
+    //     console.log("User state updated:", user);
+    // }, [user]);
 
 
 
@@ -323,7 +340,7 @@ function Transactions() {
                     <div className="bg-white p-6 rounded-lg shadow-md">
                         <p className='font-semibold'>Do you confirm the operation?</p>
                         <div className="flex justify-center gap-4 mt-4">
-                            <button className="bg-red-500 text-white font-semibold px-4 py-2 rounded-md w-[90px]" onClick={handleSubmit}>Confirm</button>
+                            <button className="bg-green-700 text-white font-semibold px-4 py-2 rounded-md w-[90px]" onClick={handleSubmit}>Confirm</button>
                             <button className="bg-gray-400 font-semibold px-4 py-2 rounded-md w-[90px]" onClick={handleCancel}>Cancel</button>
                         </div>
                     </div>

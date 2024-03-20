@@ -47,15 +47,21 @@ function AccountDetail() {
                     <div key={id} className='max-w-[380px] flex flex-col gap-3 border-2 border-gray-400 bg-gray-300 rounded-2xl p-6 shadow-lg lg:w-[600px]'>
                         <div className='flex gap-3'>
                             <img className='w-6 h-6' src="/IconAccount.png" alt="Icon Account" />
-                            <p className='font-bold text-gray-500'>Account Number: <span className='text-black'>{accountDetail.number}</span></p>
+                            <p className='font-bold text-gray-500'>Account Number: </p>
+                            <div className='flex-grow'></div>
+                            <span className='text-black font-bold'>{accountDetail.number}</span>
                         </div>
                         <div className='flex gap-3'>
                             <img className='w-6 h-6' src="/IconMoney.png" alt="Icon Balance" />
-                            <p className='font-bold text-gray-500'>Balance: <span className='text-black'>{accountDetail.balance?.toLocaleString('en-US', {style:'currency', currency:'USD'})}</span></p>
+                            <p className='font-bold text-gray-500'>Balance: </p>
+                            <div className='flex-grow'></div>
+                            <span className='text-black font-bold'>{accountDetail.balance?.toLocaleString('en-US', {style:'currency', currency:'USD'})}</span>
                         </div>
                         <div className='flex gap-3'>
                             <img className='w-6 h-6' src="/IconCalendar.png" alt="Icon Creation Date" />
-                            <p className='font-bold text-gray-500'>Creation Date: <span className='text-black'>{accountDetail.creationDate?.toLocaleString('en-US', {style:'currency', currency:'USD'})}</span></p>
+                            <p className='font-bold text-gray-500'>Creation Date: </p>
+                            <div className='flex-grow'></div>
+                            <span className='text-black font-bold'>{accountDetail.creationDate?.toLocaleString('en-US', {style:'currency', currency:'USD'})}</span>
                         </div>
                     </div>
             </div>

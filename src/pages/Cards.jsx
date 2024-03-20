@@ -28,7 +28,7 @@ function Cards() {
 
     const dispatch = useDispatch()
 
-    const { current } = authActions
+    const { update } = authActions
 
 
     const user = useSelector(store => store.authReducer.user)
@@ -75,6 +75,11 @@ function Cards() {
             colorValid = false
         } else {
             setColorCardEntered(false)
+        }
+        if (user.cards?.some(card => card.type === cardSelected.type && card.color === cardSelected.color) && cardSelected.type !== "" && cardSelected.color !== "") {
+            colorValid = false
+            typeValid = false
+            setCardExist(true)
         }
 
         if (typeValid && colorValid) {
@@ -163,12 +168,15 @@ function Cards() {
         })
             .then(response => {
                 // dispatch(current(response.data))
-                dispatch(current({cards: response.data.cards}))
+                dispatch(update({...user,
+                    cards: response.data.cards}))
             })
             .catch(error => console.log(error.response.data))
     }
 
-
+    // useEffect(() => {
+    //     console.log("User state updated:", user);
+    // }, [user]);
 
 
     // console.log(typeCardEntered);
@@ -182,11 +190,10 @@ function Cards() {
             <Carrousel/>
 
             <div className='w-full flex flex-wrap justify-center items-center px-14 gap-2 md:gap-20'>
-                <h1 className='font-bold text-center text-3xl p-2 md:p-6'>Your Cards:</h1>
                 <p className='font-semibold text-center text-gray-400'>Last entry: {new Date().toLocaleDateString('en-US', {style:'currency', currency:'USD'})}</p>
             </div>
 
-            {cardsQuantity > 0 ?(<p className='font-bold text-center text-3xl pt-4'>You have {cardsQuantity} active cards:</p>) : (<p className='font-bold text-center text-3xl pt-4'>You don't have any active cards.</p>)}
+            {cardsQuantity > 0 ?(<h1 className='font-bold text-center text-3xl pt-4'>You have {cardsQuantity} active cards:</h1>) : (<h1 className='font-bold text-center text-3xl pt-4'>You don't have any active cards.</h1>)}
             
             <div className='flex flex-wrap gap-6 justify-center md:gap-20'>
                 {user.cards?.map(card => <DetailCards key={card.id} id={card.id} type={card.type} color={card.color} number={card.number} cardholder={card.cardholder} thruDate={card.thruDate} cvv={card.cvv}/>)}
@@ -242,7 +249,7 @@ function Cards() {
                     <div className="bg-white p-6 rounded-lg shadow-md">
                         <p className='font-semibold'>Do you confirm the operation?</p>
                         <div className="flex justify-center gap-4 mt-4">
-                            <button className="bg-red-500 text-white font-semibold px-4 py-2 rounded-md w-[90px]" onClick={handleSubmit}>Confirm</button>
+                            <button className="bg-green-700 text-white font-semibold px-4 py-2 rounded-md w-[90px]" onClick={handleSubmit}>Confirm</button>
                             <button className="bg-gray-400 font-semibold px-4 py-2 rounded-md w-[90px]" onClick={handleCancel}>Cancel</button>
                         </div>
                     </div>
@@ -254,7 +261,7 @@ function Cards() {
 
 export default Cards
 
-
+    {/* <h1 className='font-bold text-center text-3xl p-2 md:p-6'>Your Cards:</h1> */}
 
 
     //     axios("http://localhost:8080/api/clients/current", {

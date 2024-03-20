@@ -17,7 +17,7 @@ function TermsAndConditions() {
 
     const dispatch = useDispatch()
 
-    const {current} = authActions
+    const { update } = authActions
 
 
 
@@ -105,7 +105,9 @@ function handleCheckboxChange() {
             }
         })
             .then(response => {
-                dispatch(current(response.data))
+                // dispatch(current(response.data))
+                dispatch(update({...user,
+                    accounts: response.data.accounts}))
             })
             .catch(error => console.log(error.response.data))
     }
@@ -197,7 +199,7 @@ function handleCheckboxChange() {
                     <div className="bg-white p-6 rounded-lg shadow-md">
                         <p className='font-semibold'>Do you confirm the operation?</p>
                         <div className="flex justify-center gap-4 mt-4">
-                            <button className="bg-red-500 text-white font-semibold px-4 py-2 rounded-md w-[90px]" onClick={handleSubmit}>Confirm</button>
+                            <button className="bg-green-700 text-white font-semibold px-4 py-2 rounded-md w-[90px]" onClick={handleSubmit}>Confirm</button>
                             <button className="bg-gray-400 font-semibold px-4 py-2 rounded-md w-[90px]" onClick={handleCancel}>Cancel</button>
                         </div>
                     </div>
