@@ -17,4 +17,3 @@ export default Anchor
 
 // className='bg-red-600 rounded-md py-2 px-1 hover:bg-red-700 w-32 text-center font-bold text-white'
 
-

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { LINKS_HEADER } from '../utils/Links'
 import Anchor from './Anchor'
 import { useDispatch } from 'react-redux';
@@ -13,8 +13,12 @@ const Header = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [confirmLogout, setConfirmLogout] = useState(false);
+
+    const [confirmLogout, setConfirmLogout] = useState(false)
+    
     const { logout } = authActions
+
+    const [isOpen, setIsOpen] = useState(false)
 
 
     //OTRA MANERA
@@ -37,11 +41,22 @@ const Header = () => {
         setConfirmLogout(false);
     }
 
-    const [isOpen, setIsOpen] = useState(false)
+
 
     const toggleMenu = () => {
         setIsOpen(!isOpen)
     }
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'auto'
+        }
+        return () => {
+            document.body.style.overflow = 'auto'
+        }
+    }, [isOpen])
 
 
     return (

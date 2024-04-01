@@ -14,7 +14,9 @@ function DetailAccounts({number, balance, creationDate, id}) {
                     <div key={id} className='max-w-[380px] flex flex-col gap-3 border-2 border-gray-400 bg-gray-300 rounded-2xl p-6 shadow-lg lg:w-[600px]'>
                         <div className='flex gap-3'>
                             <img className='w-6 h-6' src="/IconAccount.png" alt="Icon Account" />
-                            <p className='font-bold text-gray-500'>Account Number: <span className='text-black'>{number}</span></p>
+                            <p className='font-bold text-gray-500'>Account Number: </p>
+                            <div className='flex-grow'></div>
+                            <span className='text-black font-bold'>{number}</span>
                         </div>
                         <div className='flex gap-3'>
                             <img className='w-6 h-6' src="/IconMoney.png" alt="Icon Balance" />

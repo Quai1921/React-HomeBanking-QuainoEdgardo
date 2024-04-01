@@ -30,6 +30,11 @@ function SingUp() {
     const [passwordLength, setPasswordLength] = useState(false)
     const [registerSuccess, setRegisterSuccess] = useState(false)
 
+    const [isChecked, setIsChecked] = useState(false)
+    const [isNotChecked, setisNotChecked] = useState(false)
+
+    const [termsAndConditions, setTermsAndConditions] = useState(false)
+
 
     function handleInput(e) {
         setRegister({
@@ -79,7 +84,11 @@ function SingUp() {
             passwordValid = false
         }
 
-        if (firstNameValid && lastNameValid && emailValid && passwordValid) {
+        if(!isChecked && firstNameValid && lastNameValid && emailValid && passwordValid) {
+            setisNotChecked(true)
+        }
+
+        if (firstNameValid && lastNameValid && emailValid && passwordValid && isChecked) {
             const register = {
                 firstName: firstNameRef.current.value,
                 lastName: lastNameRef.current.value,
@@ -141,8 +150,26 @@ function SingUp() {
         navigate("/login")
     }
 
+    function handleCheckboxChange() {
+        setIsChecked(!isChecked)
+        setisNotChecked(false)
+    }
+
+
+    function handleTermsAndConditions() {
+        setTermsAndConditions(!termsAndConditions)
+        if (!termsAndConditions) {
+            document.body.classList.add('overflow-hidden');
+        } else {
+            document.body.classList.remove('overflow-hidden');
+        }
+    }
+
+
+
     console.log(register)
     // console.log(emailExist)
+
 
 
 
@@ -202,6 +229,13 @@ function SingUp() {
                             {passwordEntered && <p className='text-red-600 font-bold italic text-xs absolute bottom-[-16px] left-12'>Please enter your password</p>}
                             {passwordLength && <p className='text-red-600 font-bold italic text-xs absolute bottom-[-16px] left-12'>Password must be at least 8 characters</p>}
                         </fieldset>
+
+                        <div className='flex gap-4 items-center relative'>
+                            <input type="checkbox" name="termsAndConditions" id="termsAndConditions" onChange={handleCheckboxChange}/>
+                            <label htmlFor="termsAndConditions" className='font-semibold italic flex gap-2 items-center justify-center'>I accept the <span className='underline cursor-pointer' onClick={handleTermsAndConditions}>terms and conditions.</span></label>
+                            {isNotChecked && (<p className='text-red-600 font-bold text-xs absolute top-5 pl-7'>You must accept terms and conditions.</p>)}
+                        </div>
+                        
                         <div className='relative'>
                             <input type="submit" value="Sing up" className='bg-red-600 rounded-xl py-2 px-1 hover:bg-red-700 w-[180px] text-center font-bold text-white cursor-pointer'/>
                             {/* {registerSuccess && <p className='text-green-600 font-bold italic text-xs absolute left-6'>Registered successfully</p>} */}
@@ -217,6 +251,71 @@ function SingUp() {
                             </div>
                             )}
                         </div>
+
+                        {termsAndConditions && (
+                            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50 px-2" >
+                                <div className="bg-white p-6 rounded-lg shadow-md text-left max-w-[700px] max-h-[80vh] overflow-y-auto">
+                                    <h5 className='font-bold'>Terms and Conditions for Opening a Bank Account</h5>
+                                    <h6>Welcome to MindHub Bank! Before you proceed to open an account with us, please take a moment to review the following terms and conditions:</h6>
+                                    <ol>
+                                        <li></li>
+                                        <li></li>
+                                    </ol>
+                                    <ol className='list-decimal list-inside pl-4 text-left'>
+                                        <li className='font-semibold'>Account Eligibility:</li>
+                                        <ul className='list-disc list-inside pl-4'>
+                                            <li>You must be at least 18 years old.</li>
+                                            <li>You agree to provide accurate and up-to-date personal information.</li>
+                                        </ul>
+
+                                        <li className='font-semibold'>Identification and Verification:</li>
+                                        <ul className='list-disc list-inside pl-4'>
+                                            <li>A valid government-issued photo ID is required.</li>
+                                            <li>Additional documents may be requested for identity verification.</li>
+                                        </ul>
+
+                                        <li className='font-semibold'>Account Usage:</li>
+                                        <ul className='list-disc list-inside pl-4'>
+                                            <li>Your account is for personal use only.</li>
+                                            <li>You agree not to engage in illegal or fraudulent activities.</li>
+                                        </ul>
+
+                                        <li className='font-semibold'>Fees and Charges:</li>
+                                        <ul className='list-disc list-inside pl-4'>
+                                            <li>Review our fee schedule for details on account-related charges.</li>
+                                            <li>We reserve the right to update fees with prior notice.</li>
+                                        </ul>
+
+                                        <li className='font-semibold'>Online Banking:</li>
+                                        <ul className='list-disc list-inside pl-4'>
+                                            <li>Access to online banking services is provided.</li>
+                                            <li>Safeguard your login credentials and report any unauthorized access.</li>
+                                        </ul>
+
+                                        <li className='font-semibold'>Account Closure:</li>
+                                        <ul className='list-disc list-inside pl-4'>
+                                            <li>Either party may close the account with reasonable notice.</li>
+                                            <li>Closing fees may apply; refer to our fee schedul e.</li>
+                                        </ul >
+
+                                        <li className='font-semibold'>Privacy and Security:</li>
+                                        <ul className='list-disc list-inside pl-4'>
+                                            <li>Your information is protected under our privacy policy.</li>
+                                            <li>Report any security concerns or unauthorized transactions immediately.</li>
+                                        </ul >
+
+                                    </ol>
+                                    <p className='pt-4 text-justify'>By proceeding with the account opening process, you acknowledge and agree to these terms and conditions. MindHub Bank reserves the right to amend these terms
+                                        with prior notice. If you have any questions, please contact our customer service. Thank you for choosing MindHub Bank!</p>
+                                    <div className="flex justify-center gap-4 mt-6">
+                                        <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold px-4 py-2 rounded-md w-[120px]" onClick={handleTermsAndConditions}>Continue</button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+
+
 
                         <NavLink to={"/login"} className='text-red-600 font-semibold cursor-pointer text-xs underline'>Are you already registered? Sing in</NavLink>
                 </form>

@@ -32,10 +32,11 @@ const authReducer = createReducer(initialState,(builder) => {
         }
     })
     .addCase(logout, (state, action) => {
-        return {
-            ...state,
-            token: null
-        }
+        return initialState
+        // return {
+        //     ...state,
+        //     token: null
+        // }
     })
     .addCase(update, (state, action) => {
         return {

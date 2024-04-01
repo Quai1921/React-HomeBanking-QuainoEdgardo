@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import MainLayout from './layouts/MainLayout'
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom'
 import Accounts from './pages/Accounts'
@@ -14,11 +14,35 @@ import { withAuth } from './hocs/whitAuth'
 import { useDispatch, useSelector } from 'react-redux'
 import  authActions from './redux/actions/auth.actions.js'
 import axios from 'axios'
-import PruebaNav from './pages/PruebaNav.jsx'
-
+import NotFoundError from './pages/NotFoundError.jsx'
 
 
 function App() {
+
+    const user = useSelector(store => store.authReducer.user)
+
+    const dispatch = useDispatch()
+
+    const { current, login } = authActions
+
+    useEffect(() => {
+
+        const token = localStorage.getItem("token")
+
+        if (!user.loggedIn && !!token) {
+            axios.get('/api/clients/current', {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            })
+                .then(response => {
+                    dispatch(current(response?.data))
+                    dispatch(login(token))
+                })
+                .catch(error => console.log(error.response.data))
+        }
+    }, [])
+
 
   const AccountsWithAuth = withAuth(Accounts)
   const CardsWithAuth = withAuth(Cards)
@@ -26,32 +50,6 @@ function App() {
   const AccountDetailWithAuth = withAuth(AccountDetail)
   const TransactionsWithAuth = withAuth(Transactions)
 
-
-  const user = useSelector(store => store.authReducer.user)
-
-  const dispatch = useDispatch()
-
-  const { current, login } = authActions
-
-  useEffect(() => {
-
-      const token = localStorage.getItem("token")
-
-      if (!user.loggedIn && !!token) {
-          axios.get('/api/clients/current', {
-              headers: {
-                  Authorization: "Bearer " + token
-              }
-          })
-              .then(response => {
-                  dispatch(current(response.data))
-                  dispatch(login(token))
-              })
-              .catch(error => console.log(error.response.data))
-      }
-  }, [])
-
-  
 
 
   return (
@@ -62,11 +60,11 @@ function App() {
           <Route path="/register" element={<SingUp />} />
           <Route path="/login" element={<SingIn />} />
           <Route path="/avaiableLoans" element={<AvailableLoans />} />
-          <Route path="/prueba" element={<PruebaNav />} />
+          <Route path="*" element={<NotFoundError />} />
 
 
           <Route
-            path="/*"
+            path="/"
             element={
               <MainLayout>
                 <Outlet />
@@ -78,6 +76,8 @@ function App() {
             <Route path="loans" element={<LoansWithAuth />} />
             <Route path="accounts/:id" element={<AccountDetailWithAuth />} />
             <Route path="transactions" element={<TransactionsWithAuth />} />
+            <Route path="*" element={<NotFoundError />} />
+
 
           </Route>
         </Routes>
@@ -107,3 +107,6 @@ export default App
           
     //   </MainLayout>
     // </BrowserRouter>
+
+
+
