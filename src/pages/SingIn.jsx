@@ -10,6 +10,8 @@ import authActions from '../redux/actions/auth.actions.js'
 function SingIn() {
 
     const [userData, setUserData] = useState({email: "", password: ""})
+    const [emailError, setEmailError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
     const [invalidEntrance, setinvalidEntrance] = useState("")
 
     const dispatch = useDispatch()
@@ -38,31 +40,46 @@ function SingIn() {
 
     function handleSingIn(e) {
         e.preventDefault()
-        axios.post("/api/auth/login", userData)
-        .then(response => {
-            console.log(response.data)
-            let token = response.data
-            dispatch(login(response.data))
-            if (token) {
-                axios.get('/api/clients/current', {
-                    headers: {
-                        Authorization: "Bearer " + token
+
+        let emailValid = true
+        let passwordValid = true
+
+        if (userData.email == "") {
+            setEmailError(true)
+            emailValid = false
+        }
+
+        if (userData.password == "") {
+            setPasswordError(true)
+            passwordValid = false
+        }
+
+        if (emailValid && passwordValid) {
+            axios.post("/api/auth/login", userData)
+                .then(response => {
+                    console.log(response.data)
+                    let token = response.data
+                    dispatch(login(response.data))
+                    if (token) {
+                        axios.get('/api/clients/current', {
+                            headers: {
+                                Authorization: "Bearer " + token
+                            }
+                        })
+                            .then(response => {
+                                dispatch(current(response.data))
+                                // console.log(response.data);
+                                navigate("/accounts")
+                                // localStorage.setItem("lastLogin", new Date().toISOString())
+                            })
+                            .catch(error => console.log(error.response.data))
                     }
                 })
-                    .then(response => {
-                        dispatch(current(response.data))
-                        // console.log(response.data);
-                        navigate("/accounts")
-                        // localStorage.setItem("lastLogin", new Date().toISOString())
-                    })
-                    .catch(error => console.log(error.response.data))
-            }
-            
-        })
-        .catch(error => { console.log(error.response.data)
-            setinvalidEntrance(error.response.data)
-        })
-        
+                .catch(error => {
+                    console.log(error.response.data)
+                    setinvalidEntrance(error.response.data)
+                })
+        }
     }
 
 
@@ -73,6 +90,16 @@ function SingIn() {
             ...userData,
             [e.target.name]: e.target.value
         })
+    }
+
+
+    function handleChange(e){
+        if(e.target.name == "email"){
+            setEmailError(false)
+        }
+        if(e.target.name == "password"){
+            setPasswordError(false)
+        }
     }
     
     // console.log(userData)
@@ -98,8 +125,8 @@ function SingIn() {
             </div>
             
             <div className="flex gap-4 justify-center items-center">
-                <NavLink to={"/register"} className="flex items-center justify-center bg-white border-2 border-red-600 rounded-3xl h-10 w-32 text-center font-bold text-red-600  hover:bg-red-700  hover:text-white hover:border-0">Sing up</NavLink>
-                <NavLink to={"/login"} className="flex items-center justify-center bg-red-600 rounded-3xl h-10 w-32 text-center font-bold text-white  hover:bg-red-700  hover:text-white hover:border-0">Sing in</NavLink>
+                <NavLink to={"/register"} className="flex items-center justify-center bg-white border-2 border-red-600 rounded-3xl h-10 w-32 text-center font-bold text-red-600  hover:bg-red-700  hover:text-white hover:border-0">Sign up</NavLink>
+                <NavLink to={"/login"} className="flex items-center justify-center bg-red-600 rounded-3xl h-10 w-32 text-center font-bold text-white  hover:bg-red-700  hover:text-white hover:border-0">Sign in</NavLink>
             </div>
         </header>
         
@@ -107,20 +134,22 @@ function SingIn() {
             <div className='flex flex-wrap justify-center items-center pt-14 gap-4'>
                 <img className='w-[650px]' src="/Login.png" alt="Image of a young man using a notebook" />
                 <form className='flex flex-col justify-center items-center gap-5 p-8' onSubmit={handleSingIn}>
-                        <fieldset className='flex justify-center items-center gap-3'>
+                        <fieldset className='flex justify-center items-center gap-3 relative' onFocus={handleChange}>
                             <img className='w-8' src="/User.png" alt="" />
                             <input type="email" name="email" className="font-semibold cursor-pointer border-2 border-[#d2ccff] w-[300px] rounded-xl h-10 px-4" placeholder='Email' autoComplete='username' onInput={handleInput}/>
+                            {emailError && <p className='absolute left-[60px] top-[40px] text-red-600 font-bold italic text-xs'>Please enter your email</p>}
                         </fieldset>
 
-                        <fieldset className='flex justify-center items-center gap-3 relative'>
+                        <fieldset className='flex justify-center items-center gap-3 relative' onFocus={handleChange}>
                             <img className='w-8' src="/Padlock.png" alt="" />
                             <input type="password" name="password" className="font-semibold cursor-pointer border-2 border-[#d2ccff] w-[300px] rounded-xl h-10 px-4" placeholder='Password' autoComplete="current-password" onInput={handleInput}/>
+                            {passwordError && <p className='absolute left-[60px] top-[40px] text-red-600 font-bold italic text-xs'>Please enter your password</p>}
                             <p className='text-red-600 font-bold italic text-xs absolute bottom-[-15px]'>{invalidEntrance}</p>
                         </fieldset>
 
-                        <input type="submit" value="Sing in" className='bg-red-600 rounded-xl py-2 px-1 hover:bg-red-700 w-[180px] text-center font-bold text-white cursor-pointer'/>
+                        <input type="submit" value="Sign in" className='bg-red-600 rounded-xl py-2 px-1 hover:bg-red-700 w-[180px] text-center font-bold text-white cursor-pointer'/>
                         <p className='text-red-600 font-semibold cursor-pointer text-xs underline'>Have you forgotten your password?</p>
-                        <NavLink to={"/register"} className='text-red-600 font-semibold cursor-pointer text-xs underline'>Are you not registered yet? SING UP</NavLink>
+                        <NavLink to={"/register"} className='text-red-600 font-semibold cursor-pointer text-xs underline'>Are you not registered yet? SIGN UP</NavLink>
                 </form>
 
             </div>

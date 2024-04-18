@@ -105,7 +105,7 @@ function Transactions() {
                 setAccountDebitExist(true)
                 accountDebitValid = false
             }
-            if(selectedDebitAccount.balance < transactionEntered.amount){
+            if(selectedDebitAccount?.balance < transactionEntered.amount){
                 setInsufficientFunds(true)
                 amountValid = false
             }
@@ -203,24 +203,24 @@ function Transactions() {
             conceptValid = false
             setConfirmTransaction(false)
         }
-        if(transactionEntered.numberCredit.toLowerCase() == transactionEntered.numberDebit.toLowerCase()){
+        if(transactionEntered.numberCredit.toLowerCase() == transactionEntered.numberDebit.toLowerCase() && transactionEntered.numberCredit !== "" && transactionEntered.numberDebit !== ""){
             setAccountDebitEqualsAccountCredit(true)
             accountDebitValid = false
             accountCreditValid = false
             setConfirmTransaction(false)
         }
-        if(transactionEntered.amount <= 0){
+        if(transactionEntered.amount <= 0 && transactionEntered.amount !== ""){
             setAmountNegative(true)
             setAmountExist(true)
             amountValid = false
             setConfirmTransaction(false)
         }
-        if(!user.accounts?.some(account => account.number === transactionEntered.numberDebit)){
+        if(!user.accounts?.some(account => account.number === transactionEntered.numberDebit) && transactionEntered.numberDebit !== ""){
             setAccountDebitExist(true)
             accountDebitValid = false
             setConfirmTransaction(false)
         }
-        if(selectedDebitAccount.balance < transactionEntered.amount){
+        if(selectedDebitAccount?.balance < transactionEntered.amount){
             setInsufficientFunds(true)
             amountValid = false
             setConfirmTransaction(false)

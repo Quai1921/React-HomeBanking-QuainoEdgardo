@@ -193,8 +193,8 @@ function SingUp() {
             </div>
             
             <div className="flex gap-4 justify-center items-center">
-                <NavLink to={"/register"} className="flex items-center justify-center bg-white border-2 border-red-600 rounded-3xl h-10 w-32 text-center font-bold text-red-600  hover:bg-red-700  hover:text-white hover:border-0">Sing up</NavLink>
-                <NavLink to={"/login"} className="flex items-center justify-center bg-red-600 rounded-3xl h-10 w-32 text-center font-bold text-white  hover:bg-red-700  hover:text-white hover:border-0">Sing in</NavLink>
+                <NavLink to={"/register"} className="flex items-center justify-center bg-white border-2 border-red-600 rounded-3xl h-10 w-32 text-center font-bold text-red-600  hover:bg-red-700  hover:text-white hover:border-0">Sign up</NavLink>
+                <NavLink to={"/login"} className="flex items-center justify-center bg-red-600 rounded-3xl h-10 w-32 text-center font-bold text-white  hover:bg-red-700  hover:text-white hover:border-0">Sign in</NavLink>
             </div>
         </header>
 
@@ -237,7 +237,7 @@ function SingUp() {
                         </div>
                         
                         <div className='relative'>
-                            <input type="submit" value="Sing up" className='bg-red-600 rounded-xl py-2 px-1 hover:bg-red-700 w-[180px] text-center font-bold text-white cursor-pointer'/>
+                            <input type="submit" value="Sign up" className='bg-red-600 rounded-xl py-2 px-1 hover:bg-red-700 w-[180px] text-center font-bold text-white cursor-pointer'/>
                             {/* {registerSuccess && <p className='text-green-600 font-bold italic text-xs absolute left-6'>Registered successfully</p>} */}
                             {registerSuccess && (
                             <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -317,7 +317,7 @@ function SingUp() {
 
 
 
-                        <NavLink to={"/login"} className='text-red-600 font-semibold cursor-pointer text-xs underline'>Are you already registered? Sing in</NavLink>
+                        <NavLink to={"/login"} className='text-red-600 font-semibold cursor-pointer text-xs underline'>Are you already registered? Sign in</NavLink>
                 </form>
             </div>
             <h1 className='font-bold text-center pt-10 px-3'>Welcome to MindHub Online Banking</h1>
