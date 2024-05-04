@@ -21,9 +21,9 @@ function TermsAndConditions() {
 
 
 
-// console.log(user?.accounts?.length);
-// console.log(isChecked);
-// console.log(isNotChecked);
+// console.log(user?.accounts?.length)
+// console.log(isChecked)
+// console.log(isNotChecked)
 
 function handleCheckboxChange() {
     setIsChecked(!isChecked)
@@ -50,14 +50,14 @@ function handleCheckboxChange() {
                 }
             })
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     if (response.data == "Account created") {
                         setAccountSuccess(true)
                         setAccountsQuantity(false)
                     }
                 })
                 .catch(error => {
-                    console.log(error.response.data)
+                    // console.log(error.response.data)
                     if (error.response.data == "Dear client, you reached the maximum number of accounts allowed (3)") {
                         setAccountsQuantity(true)
                         setAccountSuccess(false)
@@ -109,7 +109,9 @@ function handleCheckboxChange() {
                 dispatch(update({...user,
                     accounts: response.data.accounts}))
             })
-            .catch(error => console.log(error.response.data))
+            .catch(error => {
+                // console.log(error.response.data)
+            })
     }
 
 
@@ -264,9 +266,9 @@ export default TermsAndConditions
 //         }
 //     }, [])
 
-// // console.log(user?.accounts?.length);
-// // console.log(isChecked);
-// // console.log(isNotChecked);
+// // console.log(user?.accounts?.length)
+// // console.log(isChecked)
+// // console.log(isNotChecked)
 
 // function handleCheckboxChange() {
 //     setIsChecked(!isChecked)

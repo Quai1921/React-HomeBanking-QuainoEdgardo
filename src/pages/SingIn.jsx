@@ -57,7 +57,7 @@ function SingIn() {
         if (emailValid && passwordValid) {
             axios.post("/api/auth/login", userData)
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     let token = response.data
                     dispatch(login(response.data))
                     if (token) {
@@ -68,15 +68,17 @@ function SingIn() {
                         })
                             .then(response => {
                                 dispatch(current(response.data))
-                                // console.log(response.data);
+                                // console.log(response.data)
                                 navigate("/accounts")
                                 // localStorage.setItem("lastLogin", new Date().toISOString())
                             })
-                            .catch(error => console.log(error.response.data))
+                            .catch(error => {
+                                // console.log(error.response.data)
+                            })
                     }
                 })
                 .catch(error => {
-                    console.log(error.response.data)
+                    // console.log(error.response.data)
                     setinvalidEntrance(error.response.data)
                 })
         }

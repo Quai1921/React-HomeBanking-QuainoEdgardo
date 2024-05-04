@@ -98,7 +98,7 @@ function SingUp() {
 
             axios.post("/api/auth/register", register)
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     if (response.data == "Client created") {
                         setRegisterSuccess(true)
                         setRegister({
@@ -111,7 +111,7 @@ function SingUp() {
                     }
                 })
                 .catch(error => {
-                    console.log(error.response.data)
+                    // console.log(error.response.data)
                     if (error.response.data == "The email entered already exists in the database") {
                         setEmailExist(true)
                     }
@@ -159,15 +159,15 @@ function SingUp() {
     function handleTermsAndConditions() {
         setTermsAndConditions(!termsAndConditions)
         if (!termsAndConditions) {
-            document.body.classList.add('overflow-hidden');
+            document.body.classList.add('overflow-hidden')
         } else {
-            document.body.classList.remove('overflow-hidden');
+            document.body.classList.remove('overflow-hidden')
         }
     }
 
 
 
-    console.log(register)
+    // console.log(register)
     // console.log(emailExist)
 
 

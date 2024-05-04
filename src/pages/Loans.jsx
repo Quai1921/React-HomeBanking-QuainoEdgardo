@@ -59,12 +59,14 @@ function Loans() {
             .then(response => {
                 setactiveLoans(response.data)
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                // console.log(error)
+            })
     }, [])
 
     // console.log(activeLoans)
-    // console.log(loanSelected.loanName);
-    // console.log(user.loans?.map(loan => loan.name));
+    // console.log(loanSelected.loanName)
+    // console.log(user.loans?.map(loan => loan.name))
 
 
 
@@ -76,8 +78,8 @@ function Loans() {
         // console.log(selectedLoan)
         if (selectedLoan) {
             setSelectedLoanType(selectedLoan)
-            console.log(selectedLoan)
-            // console.log(selectedLoan.maxAmount);
+            // console.log(selectedLoan)
+            // console.log(selectedLoan.maxAmount)
             // console.log(selectedLoan.payments)
         }
         }
@@ -85,7 +87,7 @@ function Loans() {
 
     function handleInput(e){
         if(e.target.name === "amount" && e.target.value > selectedLoanType.maxAmount || e.target.value < 1){
-            console.log(e.target.value);
+            // console.log(e.target.value)
             setAmountEntered(true)
         } else{
             setAmountEntered(false)
@@ -150,7 +152,7 @@ function Loans() {
                 }
             })
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     if (response.data.includes("Loan created. Total to pay: ")) {
                         setLoanSuccess(true)
                         setLoanSelected({
@@ -163,7 +165,7 @@ function Loans() {
                     }
                 })
                 .catch(error => {
-                    console.log(error.response.data)
+                    // console.log(error.response.data)
                     if (error.response.data == "The amount of payments must be between " + "[" + selectedLoanType.payments?.join(", ") + "]") {
                         setPaymentsExist(true)
                     }
@@ -244,14 +246,14 @@ function Loans() {
             setConfirmLoan(false)
         }
         if (!activeLoans?.some(loan => loan.payments.includes(parseInt(loanSelected.payments))) && loanSelected.payments != "") {
-            // console.log(activeLoans?.some(loan => loan.payments.includes(parseInt(loanSelected.payments))));
-            // console.log(parseInt(loanSelected.payments));
+            // console.log(activeLoans?.some(loan => loan.payments.includes(parseInt(loanSelected.payments))))
+            // console.log(parseInt(loanSelected.payments))
             setPaymentsExist(true)
             paymentsValid = false
             setConfirmLoan(false)
         }
         if(!user.accounts?.some(account => account.number === loanSelected.numberAccount) && loanSelected.numberAccount != "") {
-            console.log(!user.accounts?.some(account => account.number === loanSelected.numberAccount));
+            // console.log(!user.accounts?.some(account => account.number === loanSelected.numberAccount))
             setAccountExist(true)
             accountValid = false
             setConfirmLoan(false)
@@ -281,12 +283,14 @@ function Loans() {
                     loans: response.data.loans,
                     accounts: response.data.accounts}))
             })
-            .catch(error => console.log(error.response.data))
+            .catch(error => {
+                // console.log(error.response.data)
+            })
 
     }
 
 
-    console.log(loanSelected)
+    // console.log(loanSelected)
 
 
 
@@ -420,7 +424,7 @@ export default Loans
 
 
     // if(e.target.name === "amount" && e.target.value > selectedLoanType.maxAmount || e.target.value < 1){
-    //     console.log(e.target.value);
+    //     console.log(e.target.value)
     //     setAmountEntered(true)
     // } else{
     //     setAmountEntered(false)
@@ -433,7 +437,7 @@ export default Loans
 
     // const {current, login} = authActions
 
-    // // console.log(user);
+    // // console.log(user)
 
 
     // useEffect(() => {

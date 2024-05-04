@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import { LINKS_HEADER } from '../utils/Links'
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 
 const PruebaNav = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
 
     const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
+        setIsOpen(!isOpen)
+    }
 
     function Anchor({href, title}) {
         return (
@@ -69,9 +69,9 @@ const PruebaNav = () => {
                 </div>
             )}
         </nav>
-    );
-};
+    )
+}
 
-export default PruebaNav;
+export default PruebaNav
 
-<a href="#" className="block text-white py-2">Cuentas</a>
+{/* <a href="#" className="block text-white py-2">Cuentas</a> */}
