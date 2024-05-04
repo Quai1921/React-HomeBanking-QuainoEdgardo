@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import DetailAccounts from '../components/DetailAccounts';
-import Carrousel from '../components/Carrousel';
-import TermsAndConditions from '../components/TermsAndConditions';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import DetailAccounts from '../components/DetailAccounts'
+import Carrousel from '../components/Carrousel'
+import TermsAndConditions from '../components/TermsAndConditions'
+import { useSelector } from 'react-redux'
 
 
 
@@ -85,7 +85,7 @@ export default Accounts
 
     // const { current, login } = authActions
 
-    // // console.log(user);
+    // // console.log(user)
 
 
     // useEffect(() => {

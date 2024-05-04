@@ -30,13 +30,13 @@ function AccountDetail() {
             setAccountDetail(response.data)
         })
         .catch(error => {
-            console.log(error)
+            // console.log(error)
             navigate("/accounts")
         })
     }, [])
 
     // console.log(accountDetail)
-    // console.log(accountDetail[0].number);
+    // console.log(accountDetail[0].number)
 
     return (
         <main className='flex flex-col flex-1 w-full'>

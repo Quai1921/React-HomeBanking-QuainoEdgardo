@@ -1,10 +1,10 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react'
 import { LINKS_HEADER } from '../utils/Links'
 import Anchor from './Anchor'
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import authActions from '../redux/actions/auth.actions.js'
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 
 
 
@@ -34,11 +34,11 @@ const Header = () => {
     }
 
     const handleConfirm = () => {
-        setConfirmLogout(true);
+        setConfirmLogout(true)
     }
 
     const handleCancel = () => {
-        setConfirmLogout(false);
+        setConfirmLogout(false)
     }
 
 

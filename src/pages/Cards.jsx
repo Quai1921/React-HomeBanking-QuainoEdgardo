@@ -32,7 +32,7 @@ function Cards() {
 
 
     const user = useSelector(store => store.authReducer.user)
-    // console.log(user);
+    // console.log(user)
     // const token = useSelector(store => store.authReducer.token)
 
     const formRef = useRef(null)
@@ -89,7 +89,7 @@ function Cards() {
                 }
             })
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     if (response.data == "Card created") {
                         setCardSuccess(true)
                         setCardSelected({
@@ -114,14 +114,14 @@ function Cards() {
     //PARA BORRAR LAS ALERTAS CUANDO SE ELIGE UNA OPCIÓN
     function handleSelectChange(e) {
         if (e.target.name === "type") {
-            setTypeCardEntered(false);
-            setCardSuccess(false);
-            setCardExist(false);
+            setTypeCardEntered(false)
+            setCardSuccess(false)
+            setCardExist(false)
         }
         if (e.target.name === "color") {
-            setColorCardEntered(false);
-            setCardSuccess(false);
-            setCardExist(false);
+            setColorCardEntered(false)
+            setCardSuccess(false)
+            setCardExist(false)
         }
     }
 
@@ -171,17 +171,19 @@ function Cards() {
                 dispatch(update({...user,
                     cards: response.data.cards}))
             })
-            .catch(error => console.log(error.response.data))
+            .catch(error => {
+                // console.log(error.response.data)
+            })
     }
 
     // useEffect(() => {
-    //     console.log("User state updated:", user);
-    // }, [user]);
+    //     console.log("User state updated:", user)
+    // }, [user])
 
 
-    // console.log(typeCardEntered);
-    console.log(cardSelected)
-    // console.log(user.cards);
+    // console.log(typeCardEntered)
+    // console.log(cardSelected)
+    // console.log(user.cards)
 
 
     return (
@@ -274,7 +276,7 @@ export default Cards
     //         setCards(response.data.cards)
     //         })
     //         .catch(error => console.log(error))
-    // }, []);
+    // }, [])
     // console.log(cards)
 
     // const [cardsRequest, setCardsRequest] = useState([])
@@ -319,7 +321,7 @@ export default Cards
 
     // const { current, login } = authActions
 
-    // console.log(user);
+    // console.log(user)
 
 
 
@@ -329,7 +331,7 @@ export default Cards
 
     //     const token = localStorage.getItem("token")
 
-    //     // console.log(token);
+    //     // console.log(token)
     //     if (!user.loggedIn && !!token) {
     //         axios.get('/api/clients/current', {
     //             headers: {
@@ -343,7 +345,7 @@ export default Cards
     //     }
     // }, [])
 
-    // console.log(token);
+    // console.log(token)
 
 
 

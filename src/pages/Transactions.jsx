@@ -52,7 +52,7 @@ function Transactions() {
         })
     }
 
-    console.log(transactionEntered)
+    // console.log(transactionEntered)
 
 
 
@@ -116,7 +116,7 @@ function Transactions() {
                     }
                 })
                     .then(response => {
-                        console.log(response.data)
+                        // console.log(response.data)
                         if (response.data == "Transaction created") {
                             setTransactionSuccess(true)
                             setTransactionEntered({
@@ -129,7 +129,7 @@ function Transactions() {
                         }
                     })
                     .catch(error => {
-                        console.log(error.response.data)
+                        // console.log(error.response.data)
                         if (error.response.data == "The amount entered is not valid") {
                             setAmountExist(true)
                         }
@@ -251,12 +251,14 @@ function Transactions() {
                 dispatch(update({...user,
                     accounts: response.data.accounts}))
             })
-            .catch(error => console.log(error.response.data))
+            .catch(error => {
+                // console.log(error.response.data)
+            })
     }
 
     // useEffect(() => {
-    //     console.log("User state updated:", user);
-    // }, [user]);
+    //     console.log("User state updated:", user)
+    // }, [user])
 
 
 

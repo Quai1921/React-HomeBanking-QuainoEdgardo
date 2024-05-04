@@ -23,7 +23,7 @@ function DetailCards({id, type, color, number, cardholder, thruDate, cvv}) {
     
     // console.log(cardExpired)
     // console.log(new Date(thruDate).getTime())
-    // console.log(Date.now());
+    // console.log(Date.now())
 
 
 
